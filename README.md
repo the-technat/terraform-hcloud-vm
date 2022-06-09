@@ -8,7 +8,6 @@ Terraform module to create a virtual machine on Hetzner cloud
 | Name | Version |
 |------|---------|
 | <a name="requirement_hcloud"></a> [hcloud](#requirement\_hcloud) | 1.33.2 |
-| <a name="requirement_hetznerdns"></a> [hetznerdns](#requirement\_hetznerdns) | 2.1.0 |
 
 ## Providers
 
@@ -48,5 +47,8 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_server_ipv4_address"></a> [server\_ipv4\_address](#output\_server\_ipv4\_address) | n/a |
+| <a name="output_server_ipv6_address"></a> [server\_ipv6\_address](#output\_server\_ipv6\_address) | n/a |
 <!-- END_TF_DOCS -->
