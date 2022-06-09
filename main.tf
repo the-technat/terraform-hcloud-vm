@@ -5,16 +5,16 @@ resource "hcloud_server" "vm" {
   location           = var.server_location
   keep_disk          = true
   backups            = var.enable_server_backups
-  ssh_keys           = [hcloud_ssh_key.name]
+  ssh_keys           = [hcloud_ssh_key.root.name]
   delete_protection  = true
   rebuild_protection = true
 
-  user_data = templatefle(
+  user_data = templatefile(
     "${path.module}/templates/server.yaml.tmpl",
     {
-      ssh_user = var.admin_user
-      ssh_keys = var.ssh_keys
-      ssh_port = var.ssh_port
+      admin_user = var.admin_user
+      ssh_keys   = var.ssh_keys
+      ssh_port   = var.ssh_port
     }
   )
 
