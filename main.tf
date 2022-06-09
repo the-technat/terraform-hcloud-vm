@@ -3,11 +3,11 @@ resource "hcloud_server" "vm" {
   image              = var.server_image
   server_type        = var.server_type
   location           = var.server_location
-  keep_disk          = true
   backups            = var.enable_server_backups
   ssh_keys           = [hcloud_ssh_key.root.name]
-  delete_protection  = true
-  rebuild_protection = true
+  keep_disk          = true // used to allow up and downscaling of the size
+  delete_protection  = false
+  rebuild_protection = false
 
   user_data = templatefile(
     "${path.module}/templates/server.yaml.tmpl",
@@ -34,18 +34,14 @@ resource "hcloud_firewall" "vm" {
     source_ips = ["0.0.0.0/0", "::/0"]
   }
 
-  rule {
-    direction  = "in"
-    protocol   = "tcp"
-    port       = "443"
-    source_ips = ["0.0.0.0/0", "::/0"]
-  }
-
-  rule {
-    direction  = "in"
-    protocol   = "tcp"
-    port       = "80"
-    source_ips = ["0.0.0.0/0", "::/0"]
+  dynamic "rule" {
+    for_each = var.firewall_rules
+    content {
+      direction  = rule.value.direction
+      protocol   = rule.value.protocol
+      port       = rule.value.port
+      source_ips = rule.value.souce_ips
+    }
   }
 
   apply_to {

@@ -18,7 +18,7 @@ variable "server_location" {
 
 variable "server_type" {
   type        = string
-  default     = "cp11"
+  default     = "cx11"
   description = "Server size by type"
 }
 
@@ -50,6 +50,20 @@ variable "common_labels" {
   type        = map(string)
   default     = {}
   description = "Map of labels to add to all resources"
+}
+
+#----------------
+# Networking
+#----------------
+variable "firewall_rules" {
+  type = list(object({
+    port       = number
+    protocol   = string
+    direction  = string
+    source_ips = list(string)
+  }))
+  default     = []
+  description = "Additional firewall rules to add to the server (ssh is already allowed)"
 }
 
 #----------------
