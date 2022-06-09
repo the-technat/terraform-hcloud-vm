@@ -40,7 +40,7 @@ resource "hcloud_firewall" "vm" {
       direction  = rule.value.direction
       protocol   = rule.value.protocol
       port       = rule.value.port
-      source_ips = rule.value.souce_ips
+      source_ips = rule.value.source_ips
     }
   }
 
