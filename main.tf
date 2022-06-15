@@ -4,7 +4,7 @@ resource "hcloud_server" "vm" {
   server_type        = var.server_type
   location           = var.server_location
   backups            = var.enable_server_backups
-  ssh_keys           = [hcloud_ssh_key.root.name]
+  ssh_keys           = var.root_ssh_key_ids
   keep_disk          = true // used to allow up and downscaling of the size
   delete_protection  = false
   rebuild_protection = false
@@ -66,9 +66,4 @@ resource "hcloud_rdns" "vm_ptr_v6" {
   server_id  = hcloud_server.vm.id
   ip_address = hcloud_server.vm.ipv6_address
   dns_ptr    = var.server_ptr_record
-}
-
-resource "hcloud_ssh_key" "root" {
-  name       = "${var.server_name} root"
-  public_key = var.ssh_key_root == "" ? var.ssh_keys[0] : var.ssh_key_root
 }

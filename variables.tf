@@ -87,8 +87,8 @@ variable "ssh_keys" {
   description = "List of ssh keys to add to the admin_user"
 }
 
-variable "ssh_key_root" {
-  type        = string
-  description = "SSH key to add to root user (only used to prevent hcloud from sending a mail with the root password, empty means the first key from ssh_keys list)"
-  default     = ""
+variable "root_ssh_key_ids" {
+  type        = list(string)
+  description = "List of IDs of precreated ssh_keys that should be added to root account of server (empty means you get the root password via mail)"
+  default     = []
 }
