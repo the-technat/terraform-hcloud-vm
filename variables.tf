@@ -63,7 +63,7 @@ variable "firewall_rules" {
     source_ips = list(string)
   }))
   default     = []
-  description = "Additional firewall rules to add to the server (ssh is already allowed)"
+  description = "Additional firewall rules to add to the server (ssh and ping is already allowed)"
 }
 
 #----------------

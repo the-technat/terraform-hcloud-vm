@@ -34,6 +34,13 @@ resource "hcloud_firewall" "vm" {
     source_ips = ["0.0.0.0/0", "::/0"]
   }
 
+  rule {
+    // allow ping 
+    direction  = "in"
+    protocol   = "icmp"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
+
   dynamic "rule" {
     for_each = var.firewall_rules
     content {
